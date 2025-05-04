@@ -1,0 +1,257 @@
+{
+  "d043": {
+    "name": "Anil Biradar",
+    "email": "xxxxxxxxxx@gmail.com",
+    "phone": "xx-xxxxxxxxxx",
+    "github_url": "https://github.com/anilbiradar27",
+    "linkedin_url": "https://www.linkedin.com/in/anil-biradar-a0386b252",
+    "location": "Hyderabad, Telangana",
+    "work_experience": [],
+    "projects": [
+      {
+        "name": "Bankruptcy Prevention",
+        "description": "Developed a predictive classification model to assess the probability of a business going bankrupt based on six key features.",
+        "skills": [
+          "Machine Learning",
+          "Logistic Regression", 
+          "Random Forest",
+          "K-NN",
+          "Decision Tree",
+          "Xgboost",
+          "Adaboost"
+        ],
+        "url": ""
+      },
+      {
+        "name": "Financial Sentiment Analysis",
+        "description": "Conducted sentiment analysis of financial statements to gauge their impact on businesses and governments.",
+        "skills": [
+          "NLP",
+          "Text mining",
+          "Text preprocessing",
+          "Logistic Regression",
+          "Random Forest", 
+          "K-NN",
+          "Decision Tree",
+          "Naive Bayes",
+          "Xgboost",
+          "Adaboost",
+          "SVM"
+        ],
+        "url": ""
+      }
+    ],
+    "total_we_months": 0,
+    "location_coordinates": {
+      "latitude": 17.361362,
+      "longitude": 78.474525
+    },
+    "source_file": "_Anil_Biradar-1 - anil biradar.pdf",
+    "file_hash": "d0433fa9d735ae1ce368efedbefb5f1c",
+    "processed_at": "2025-05-03T10:38:56.191737"
+  },
+  "0845": {
+    "name": "Niraj Gurav",
+    "email": "xxxxxxxxxx@gmail.com",
+    "phone": "xx xxxxxxxxxx",
+    "github_url": "",
+    "linkedin_url": "https://linkedin.com/in/niraj-gurav-a68ba3321",
+    "location": "Ahmedabad, India",
+    "work_experience": [],
+    "projects": [
+      {
+        "name": "Hospital Management System",
+        "description": "A Hospital Management System project automates patient records, appointments, billing, and inventory, enhancing hospital efficiency and organization.",
+        "skills": [
+          "Python",
+          "Django"
+        ],
+        "url": ""
+      },
+      {
+        "name": "Plant Disease Detection System",
+        "description": "Building image recognition model using python / machine learning",
+        "skills": [
+          "Python",
+          "Machine Learning"
+        ],
+        "url": ""
+      }
+    ],
+    "total_we_months": 0,
+    "location_coordinates": {
+      "latitude": 23.024553,
+      "longitude": 72.58957
+    },
+    "source_file": " Resume - Niraj Gurav.pdf",
+    "file_hash": "084572a16dc4a08e79b2aa7790c62b38",
+    "processed_at": "2025-05-03T10:38:18.996392"
+  },
+  "9a8b": {
+    "name": "Sonali Pulate",
+    "email": "xxxxxxxxxx@gmail.com",
+    "phone": "xxxxxxxxxxx",
+    "github_url": "",
+    "linkedin_url": "linkedin.com/in/sonali-pulate",
+    "location": "Shirdi, Maharashtra, India",
+    "work_experience": [
+      {
+        "company": "P99software",
+        "title": "Associate Data Scientist",
+        "start_date": "2021-01-01",
+        "end_date": "2023-12-31",
+        "is_current": false,
+        "location": "",
+        "responsibilities": [
+          "Investigating Impact of Climate Change on Agriculture using NumPy and Pandas",
+          "Analyzing Social Media Trends using Pandas and Matplotlib",
+          "Predicting Traffic Congestion using NumPy and Pandas"
+        ],
+        "skills": [
+          "NumPy",
+          "Pandas",
+          "Matplotlib"
+        ],
+        "location_coordinates": null
+      },
+      {
+        "company": "Brand Infinity Exim Pvt. Ltd",
+        "title": "ML Engineer",
+        "start_date": "2024-01-01",
+        "end_date": "2024-09-30",
+        "is_current": true,
+        "location": "",
+        "responsibilities": [
+          "Involved in coding, bug fixing, and designing Python-based applications.",
+          "Helped to develop one of the company's flagship products resulting in a 10% market share increase.",
+          "Assisted in code review and unit testing, contributing 25% reduction in identified code flaws."
+        ],
+        "skills": [
+          "Python"
+        ],
+        "location_coordinates": null
+      }
+    ],
+    "projects": [
+      {
+        "name": "Automated TikTok to YouTube System",
+        "description": "Build a system to automate downloading trending TikTok videos and uploading them to YouTube, keeping the original metadata.",
+        "skills": [
+          "Python",
+          "REST Framework",
+          "Django",
+          "Data Visualization"
+        ],
+        "url": ""
+      },
+      {
+        "name": "Intelligent Chatbot",
+        "description": "Create an intelligent chatbot using NLP techniques to interact with users and provide information or answer questions on a specific topic or domain.",
+        "skills": [
+          "NLP",
+          "Streamlit",
+          "Python"
+        ],
+        "url": ""
+      },
+      {
+        "name": "Sentiment Analysis and Classification of Customer Reviews",
+        "description": "Developed a machine learning model to perform sentiment analysis and classification of customer reviews using natural language processing (NLP) techniques.",
+        "skills": [
+          "Python",
+          "Scikit-learn",
+          "NLTK",
+          "Pandas"
+        ],
+        "url": ""
+      },
+      {
+        "name": "Migration Prediction System",
+        "description": "The goal is to predict the migration of people from one country to another and develop strategies to control the migration rate.",
+        "skills": [],
+        "url": ""
+      }
+    ],
+    "total_we_months": 51,
+    "location_coordinates": {
+      "latitude": 19.764585,
+      "longitude": 74.47615
+    },
+    "source_file": "1 ML Engineer Resume - Sonali Pulate.pdf",
+    "file_hash": "9a8beeb7f9488867a0b335a741a7de0f",
+    "processed_at": "2025-05-03T10:39:21.457149"
+  },
+  "b0f1": {
+    "name": "RAJ SHARMA",
+    "email": "xxxxxxxxxx@gmail.com",
+    "phone": "xx xxxxx xxxxx",
+    "github_url": "https://github.com/RajGitt/Data-science",
+    "linkedin_url": "https://linkedin.com/in/rajsharma0399",
+    "location": "Surat, Gujarat, India",
+    "work_experience": [
+      {
+        "company": "Kash Info Solutions Pvt. Ltd.",
+        "title": "Full-Stack Developer intern",
+        "start_date": "2022-10-01",
+        "end_date": "2023-02-01",
+        "is_current": false,
+        "location": "Surat, Gujarat, India",
+        "responsibilities": [
+          "Developed frontend interfaces using Vue.js, HTML, CSS, and JavaScript",
+          "Collaborated with backend teams to integrate APIs and server-side logic for robust functionality",
+          "Participated in code reviews and team meetings to improve code quality and project efficiency"
+        ],
+        "skills": [
+          "Vue.js",
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "Express",
+          "Node.js"
+        ],
+        "location_coordinates": {
+          "latitude": 21.20934,
+          "longitude": 72.83305
+        }
+      },
+      {
+        "company": "Core Medical Instruments Pvt. Ltd.",
+        "title": "Web Developer",
+        "start_date": "2022-01-01",
+        "end_date": "2022-04-01",
+        "is_current": false,
+        "location": "Online",
+        "responsibilities": [
+          "Designed and implemented frontend architecture with Vue.js, HTML, and CSS for responsive web apps",
+          "Integrated server-side APIs to ensure smooth communication between frontend and backend",
+          "Optimized performance through code refactoring, reducing page load times and improving efficiency"
+        ],
+        "skills": [
+          "Vue.js",
+          "HTML",
+          "CSS",
+          "JavaScript"
+        ],
+        "location_coordinates": null
+      }
+    ],
+    "projects": [
+      {
+        "name": "Tata Forage Data Visualization",
+        "description": "Delivered insights and business solutions through effective storytelling and dashboard creation.",
+        "skills": [
+          "Tableau"
+        ],
+        "url": ""
+      }
+    ],
+    "total_we_months": 7,
+    "location_coordinates": {
+      "latitude": 21.20934,
+      "longitude": 72.83305
+    },
+    "source_file": "01RajSharma resume (1) - raj sharma.pdf",
+    "file_hash": "b0f1cbee42d4dcef0a1d8965d88aa2bc",
+    "processed_at": "2025-05-03T10:40:05.174407"
+  }
+}

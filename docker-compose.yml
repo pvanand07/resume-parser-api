@@ -1,0 +1,21 @@
+services:
+  resume-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+      - resume_data:/app/temp_uploads
+    environment:
+      - PYTHONUNBUFFERED=1
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - MAPBOX_ACCESS_TOKEN=${MAPBOX_ACCESS_TOKEN}
+    env_file:
+      - ./secrets.env
+    restart: unless-stopped
+    # If you need to pass OpenAI API key via env var, uncomment and replace with your key
+    # environment:
+    #   - OPENAI_API_KEY=your_api_key_here
+
+volumes:
+  resume_data: 

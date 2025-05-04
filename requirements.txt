@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+python-multipart
+PyPDF2
+tiktoken
+openai
+PyMuPDF
+tqdm
+requests
+pydantic
+python-dotenv
+geopy
+python-docx

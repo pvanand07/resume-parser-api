@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Parser</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        .upload-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--primary-color);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone:hover {
+            background: rgba(74, 144, 226, 0.1);
+        }
+
+        .drop-zone.dragover {
+            background: rgba(74, 144, 226, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .results-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .resume-list {
+            border-right: 1px solid #eee;
+            padding-right: 20px;
+        }
+
+        .resume-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .resume-item:hover {
+            background: var(--secondary-color);
+        }
+
+        .resume-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .resume-item .status {
+            font-size: 0.8em;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-left: 10px;
+        }
+
+        .status.processing {
+            background: #f1c40f;
+            color: #fff;
+        }
+
+        .status.completed {
+            background: var(--success-color);
+            color: #fff;
+        }
+
+        .status.error {
+            background: var(--error-color);
+            color: #fff;
+        }
+
+        .resume-filename {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .resume-details {
+            padding: 20px;
+            background: var(--secondary-color);
+            border-radius: 8px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--primary-color);
+        }
+
+        .error {
+            color: var(--error-color);
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+
+        .success {
+            color: var(--success-color);
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+
+        .button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+
+        #uploadProgress {
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .resume-item .actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .delete-btn {
+            background: var(--error-color);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            opacity: 1;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-btn.cancel {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .modal-btn.confirm {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .modal-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resume Parser</h1>
+        
+        <div class="upload-container">
+            <div class="drop-zone" id="dropZone">
+                <p>Drag and drop PDF resumes here or click to select files</p>
+                <input type="file" id="fileInput" multiple accept=".pdf" style="display: none;">
+                <div id="uploadProgress"></div>
+            </div>
+        </div>
+
+        <div class="results-container">
+            <div class="resume-list" id="resumeList">
+                <h3>Processed Resumes</h3>
+                <div id="resumeItems"></div>
+            </div>
+            <div class="resume-details" id="resumeDetails">
+                <p>Select a resume to view details</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add confirmation modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal">
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to delete this resume? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="hideDeleteModal()">Cancel</button>
+                <button class="modal-btn confirm" onclick="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const uploadProgress = document.getElementById('uploadProgress');
+        const resumeItems = document.getElementById('resumeItems');
+        const resumeDetails = document.getElementById('resumeDetails');
+
+        // Drag and drop handlers
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropZone.classList.add('dragover');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropZone.classList.remove('dragover');
+            });
+        });
+
+        dropZone.addEventListener('drop', handleDrop);
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
+        async function handleFiles(files) {
+            const formData = new FormData();
+            let validFiles = Array.from(files).filter(file => file.type === 'application/pdf');
+            
+            if (validFiles.length === 0) {
+                showMessage('Please upload PDF files only', 'error');
+                return;
+            }
+
+            validFiles.forEach(file => {
+                formData.append('files', file);
+            });
+            formData.append('remove_pii', 'false');
+
+            try {
+                showProgress('Uploading resumes...');
+                const response = await fetch('/parse-multiple-resumes/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error('Upload failed');
+                
+                const result = await response.json();
+                showMessage(`Successfully started processing ${result.hash_prefixes.length} resumes`, 'success');
+                loadResumeList();
+            } catch (error) {
+                showMessage('Error uploading files: ' + error.message, 'error');
+            } finally {
+                hideProgress();
+            }
+        }
+
+        // Add delete modal functionality
+        const deleteModal = document.getElementById('deleteModal');
+        let currentDeleteHash = null;
+
+        function showDeleteModal(hash, event) {
+            event.stopPropagation(); // Prevent triggering resume selection
+            currentDeleteHash = hash;
+            deleteModal.style.display = 'flex';
+        }
+
+        function hideDeleteModal() {
+            deleteModal.style.display = 'none';
+            currentDeleteHash = null;
+        }
+
+        async function confirmDelete() {
+            if (!currentDeleteHash) return;
+            
+            try {
+                const response = await fetch(`/results/${currentDeleteHash}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) throw new Error('Delete failed');
+                
+                showMessage('Resume deleted successfully', 'success');
+                loadResumeList(); // Refresh the list
+                
+                // Clear details if the deleted resume was selected
+                const detailsHeader = resumeDetails.querySelector('h3');
+                if (detailsHeader && detailsHeader.textContent.includes(currentDeleteHash)) {
+                    resumeDetails.innerHTML = '<p>Select a resume to view details</p>';
+                }
+            } catch (error) {
+                showMessage('Error deleting resume: ' + error.message, 'error');
+            } finally {
+                hideDeleteModal();
+            }
+        }
+
+        // Update loadResumeList to include delete button
+        async function loadResumeList() {
+            try {
+                const response = await fetch('/results');
+                const data = await response.json();
+                
+                resumeItems.innerHTML = '';
+                data.results.forEach(result => {
+                    const item = document.createElement('div');
+                    item.className = 'resume-item';
+                    
+                    const itemContent = document.createElement('div');
+                    itemContent.innerHTML = `
+                        <div>Resume ${result.hash_prefix}</div>
+                        <div class="resume-filename">${result.filename}</div>
+                    `;
+                    
+                    const actionsDiv = document.createElement('div');
+                    actionsDiv.className = 'actions';
+                    
+                    const statusBadge = document.createElement('span');
+                    statusBadge.className = `status ${result.status}`;
+                    statusBadge.textContent = result.status;
+                    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'delete-btn';
+                    deleteBtn.textContent = 'Delete';
+                    deleteBtn.onclick = (e) => showDeleteModal(result.hash_prefix, e);
+                    
+                    actionsDiv.appendChild(statusBadge);
+                    actionsDiv.appendChild(deleteBtn);
+                    
+                    item.appendChild(itemContent);
+                    item.appendChild(actionsDiv);
+                    
+                    if (result.status !== 'error') {
+                        item.onclick = () => loadResumeDetails(result.hash_prefix);
+                    }
+                    
+                    resumeItems.appendChild(item);
+                });
+
+                // If there are processing items, refresh the list periodically
+                if (data.results.some(r => r.status === 'processing')) {
+                    setTimeout(loadResumeList, 5000);
+                }
+            } catch (error) {
+                showMessage('Error loading resume list: ' + error.message, 'error');
+            }
+        }
+
+        async function loadResumeDetails(hash) {
+            try {
+                document.querySelectorAll('.resume-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                event.target.closest('.resume-item').classList.add('active');
+
+                const response = await fetch(`/results/${hash}`);
+                const data = await response.json();
+                
+                let detailsContent = '<h3>Resume Details</h3>';
+                
+                if (data.status === 'processing') {
+                    detailsContent += `
+                        <div class="loading">
+                            <p>${data.message}</p>
+                            <p>Started: ${new Date(data.started_at).toLocaleString()}</p>
+                            <p>File: ${data.filename}</p>
+                        </div>
+                    `;
+                    // Refresh after 5 seconds if still processing
+                    setTimeout(() => loadResumeDetails(hash), 5000);
+                } else if (data.status === 'error') {
+                    detailsContent += `
+                        <div class="error">
+                            <p>${data.message}</p>
+                            <p>Failed at: ${new Date(data.failed_at).toLocaleString()}</p>
+                            <p>File: ${data.filename}</p>
+                        </div>
+                    `;
+                } else {
+                    detailsContent += `<pre style="white-space: pre-wrap;">${JSON.stringify(data, null, 2)}</pre>`;
+                }
+                
+                resumeDetails.innerHTML = detailsContent;
+            } catch (error) {
+                showMessage('Error loading resume details: ' + error.message, 'error');
+            }
+        }
+
+        function showMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type;
+            messageDiv.textContent = message;
+            uploadProgress.innerHTML = '';
+            uploadProgress.appendChild(messageDiv);
+            setTimeout(() => messageDiv.remove(), 5000);
+        }
+
+        function showProgress(message) {
+            uploadProgress.innerHTML = `
+                <div class="loading">${message}</div>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill"></div>
+                </div>
+            `;
+        }
+
+        function hideProgress() {
+            uploadProgress.innerHTML = '';
+        }
+
+        // Close modal when clicking outside
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal) {
+                hideDeleteModal();
+            }
+        });
+
+        // Load initial resume list
+        loadResumeList();
+    </script>
+</body>
+</html> 
