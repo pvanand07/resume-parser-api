@@ -87,7 +87,7 @@ http://localhost:8000/docs
 ## Environment Variables
 
 - `OPENROUTER_API_KEY`: API key for OpenRouter API (required)
-- `RESULTS_FILE`: Path to the JSON file for storing results (default: "resume_results.json")
+- `RESULTS_FILE`: Path to the JSON file for storing results (default: "resume_results.json").
 
 ## License
 
